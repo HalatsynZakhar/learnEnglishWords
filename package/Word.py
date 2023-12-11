@@ -2,7 +2,7 @@ import random
 
 class Word:
 
-    def __init__(self, currentLvl, currentStepInLvl, stepLvl, status, english, russian):
+    def __init__(self, currentLvl, currentStepInLvl, stepLvl, status, english, russian, type):
         self.currentLvl = currentLvl
         self.currentStepInLvl = currentStepInLvl
         self.stepLvl = stepLvl
@@ -10,6 +10,7 @@ class Word:
         self.english = english.lower()
         self.all_level = len(english)
         self.russian = russian.lower()
+        self.type = type
 
     def getStatus(self):
         return self.status
