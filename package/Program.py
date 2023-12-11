@@ -15,7 +15,7 @@ from colorama import Fore, Style
 class Program:
     def __init__(self):
         self.training = Training(self.get_data_from_database())
-    def print_yellow(self, color, text):
+    def print_collor(self, color, text):
         print(color + text + Style.RESET_ALL)
 
     def run(self):
@@ -65,11 +65,14 @@ class Program:
                     print("Слово не было найдено")
 
 
+        check = True
+
         while True:
-            if len(temp)>0:
+            if len(temp)>0 and check:
                 word = random.choice(temp)
             else:
-                word = self.training.generate_word()
+                if check:
+                    word = self.training.generate_word()
 
                 if inp == "1":
                     if word.getStatus() == "изучено":
@@ -88,15 +91,16 @@ class Program:
                                                                                         word.getCurrentStepInLvl(),
                                                                                         word.getStepLvl()))
             print("Слово на русском: ", end="")
-            self.print_yellow(Fore.YELLOW, word.getRussian())
+            self.print_collor(Fore.YELLOW, word.getRussian())
             print("Слово на английском: ", end="")
-            self.print_yellow(Fore.YELLOW, word.getEnglishTraining())
+            self.print_collor(Fore.YELLOW, word.getEnglishTraining())
             answer = input("Ваш ответ: ")
 
             if answer.lower() == "123":
                 break
 
-            self.training.check_answer(word, answer)
+            check = self.training.check_answer(word, answer)
+
 
         print("Программа завершена.")
         self.write_data_to_database(self.training.words)
