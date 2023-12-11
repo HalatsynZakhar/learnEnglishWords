@@ -120,11 +120,11 @@ class Program:
         cur = conn.cursor()
         cur.execute('DROP TABLE IF EXISTS merged_engrus')  # Удаляем старую таблицу
         cur.execute(
-            'CREATE TABLE IF NOT EXISTS merged_engrus (currentLvl INTEGER, currentStepInLvl INTEGER, stepLvl INTEGER, status TEXT, english TEXT, russian TEXT)')  # Создаем новую таблицу
+            'CREATE TABLE IF NOT EXISTS merged_engrus (currentLvl INTEGER, currentStepInLvl INTEGER, stepLvl INTEGER, status TEXT, english TEXT, russian TEXT, type TEXT)')  # Создаем новую таблицу
         data_to_insert = [
-            (word.currentLvl, word.currentStepInLvl, word.stepLvl, word.status, word.english, word.russian) for word
+            (word.currentLvl, word.currentStepInLvl, word.stepLvl, word.status, word.english, word.russian, word.type) for word
             in words]
-        cur.executemany('INSERT INTO merged_engrus VALUES (?, ?, ?, ?, ?, ?)', data_to_insert)
+        cur.executemany('INSERT INTO merged_engrus VALUES (?, ?, ?, ?, ?, ?, ?)', data_to_insert)
         conn.commit()
         conn.close()
 
